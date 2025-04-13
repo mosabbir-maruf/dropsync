@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DropSync - File Transfer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>DropSync - File Transfer</h1>
+      <p>Seamless Peer-to-Peer File Sharing</p>
+    </header>
+
+    <section class="device-name">
+      <label for="deviceName">Enter your Device Name:</label>
+      <input type="text" id="deviceName" placeholder="e.g. My Laptop">
+      <button id="setNameBtn">Set Name</button>
+    </section>
+
+    <section class="device-list">
+      <h2>Available Devices</h2>
+      <ul id="deviceList">
+        <!-- Device list will appear here -->
+      </ul>
+    </section>
+
+    <section class="file-transfer">
+      <h2>Send a File</h2>
+      <input type="file" id="fileInput" />
+      <button id="sendFileBtn" disabled>Send File</button>
+      <p id="fileStatus"></p>
+    </section>
+
+    <div id="status" class="status-message"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
