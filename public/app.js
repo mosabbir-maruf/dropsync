@@ -1,4 +1,4 @@
-const socket = new WebSocket("ws://localhost:3000");
+const socket = new WebSocket("wss://dropsync.onrender.com:3000");  // Updated WebSocket URL
 let localDeviceName = null;
 let peerConnection;
 let dataChannel;
@@ -10,34 +10,18 @@ let messageInput = document.getElementById("messageInput");
 let sendMessageBtn = document.getElementById("sendMessageBtn");
 let chatWindow = document.getElementById("chatWindow");
 
-// List of anime characters for random name assignment
-const animeNames = [
-  "Naruto Uzumaki", "Sakura Haruno", "Sasuke Uchiha", "Goku", "Vegeta", 
-  "Luffy", "Zoro", "Nami", "Mikasa Ackerman", "Eren Yeager", "Hinata Hyuga", 
-  "Kagome Higurashi", "Inuyasha", "Kira Yamato", "Shinji Ikari", "Yusuke Urameshi"
-];
-
-// Automatically assign a random device name if not set
-function generateRandomDeviceName() {
-  return animeNames[Math.floor(Math.random() * animeNames.length)];
-}
-
-function setDeviceName(name) {
-  localDeviceName = name;
-  socket.send(JSON.stringify({ type: "new_device", deviceName: localDeviceName }));
-  document.getElementById("status").innerText = `Device name set to: ${localDeviceName}`;
-  document.getElementById("status").style.display = "block";
-}
+document.getElementById("setNameBtn").addEventListener("click", () => {
+  localDeviceName = document.getElementById("deviceName").value;
+  if (localDeviceName) {
+    socket.send(JSON.stringify({ type: "new_device", deviceName: localDeviceName }));
+    document.getElementById("status").innerText = `Device name set to: ${localDeviceName}`;
+    document.getElementById("status").style.display = "block";
+  }
+});
 
 // Connect to signaling server
 socket.addEventListener("open", () => {
   console.log("🟢 Connected to signaling server");
-
-  // Automatically assign a random device name if not set
-  if (!localDeviceName) {
-    localDeviceName = generateRandomDeviceName();
-    setDeviceName(localDeviceName);
-  }
 });
 
 // Handle incoming WebSocket messages
